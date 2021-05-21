@@ -5,20 +5,24 @@ function App() {
   const [data, setData] = useState([]);
   const [scrambled, setScramble] = useState([]);
   const [success, setSuccess] = useState([]);
-  const [score, setScore] = useState(0);
-  const [correct, setCorrect] = useState(0);
+  const [score, setScore] = useState(0); //overallscore
+  const [roundScore, setRoundScore] = useState(0);
+  const [correct, setCorrect] = useState(0); //each word
+  const [question, setQuestion] = useState(1);
+  const [next, setNext] = useState(false);
 
   useEffect(() => {
-    const getData = async () => {
-      const dataFromServer = await fetchData();
-      setData(dataFromServer.data.sentence);
-      setScramble(scramble(dataFromServer.data.sentence));
-    }
     getData();
-  }, []);
+  }, [], question);
+
+  const getData = async () => {
+    const dataFromServer = await fetchData();
+    setData(dataFromServer.data.sentence);
+    setScramble(scramble(dataFromServer.data.sentence));
+  }
 
   const fetchData = async () => {
-    const res = await fetch('https://api.hatchways.io/assessment/sentences/1');
+    const res = await fetch(`https://api.hatchways.io/assessment/sentences/${question}`);
     const data = await res.json();
     return data
   }
@@ -55,11 +59,31 @@ function App() {
     }
     if (guess === answer && guess === " " && correct === w.length) {
       setScore(prevState => prevState + 1);
+      setRoundScore(prevState => prevState + 1);
       setCorrect(prevState => prevState * 0);
     }
   }
 
+  const reload = (e) => {
+    e.preventDefault(); //prevents enter spacing in text area
+    setSuccess([]);
+    setCorrect(prevState => prevState * 0);
+    setNext(false);
+    setQuestion(prevState => prevState + 1); 
+    setRoundScore(prevState => prevState * 0);
+    getData();
+  }
+
+  function disableScreen() {
+    var div= document.createElement("div");
+    div.className += "overlay";
+    document.body.appendChild(div);
+  }
+
   return (
+    <>
+    {score === 10 ? <div class="alert alert-success" role="alert">Hooray! You have a score of 10. You won!</div> : null}
+    {score === 10 ? disableScreen() : null}
     <div className="main-container">
     <span id="scrambled-word">{data.length > 0 ? <h1>{scrambled}</h1>: "Loading..."}</span>
     <div className="info">Guess the sentence! Start typing</div>
@@ -92,8 +116,14 @@ function App() {
       </div> 
      ) : "Loading..."}
     </div>
-    {data.length > 0 ? score === data.split(' ').length ? <button>Next</button>: null : "Loading..."}
+    {/* {data.length > 0 ? roundScore === data.split(' ').length  ?  */}
+      <button
+        onClick={event => reload(event)}
+      >Next
+      </button>
+      {/* : null : "Loading..."} */}
     </div>
+    </>
   );
 }
 
