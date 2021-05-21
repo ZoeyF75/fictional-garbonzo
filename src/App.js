@@ -109,8 +109,11 @@ function App() {
   <h2>Score: {score}</h2>
     <div className="keyboard-container">
     {data.length > 0 ? 
-      data.split(' ').map(word =>
-      <div className="word">
+      data.split(' ').map((word, index) =>
+      <div 
+        key={index}
+        className="word"
+      >
         {word.split('').map((letter, index) => 
           <input 
             key={`${index}${word}`}
@@ -126,7 +129,7 @@ function App() {
             maxLength="1"
             onChange={event => guess(event.target.value, " ", "space", word)}
             className={success.includes(`space${word}`) ? "space-success" : "space"}
-            disabled={success.includes(`space${word}`) || correct < word.length}
+            disabled={success.includes(`space${word}`)}
           >
           </input>}
       </div> 
