@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     getData();
-  }, [], question);
+  },[question]);
 
   const getData = async () => {
     const dataFromServer = await fetchData();
@@ -64,12 +64,13 @@ function App() {
     }
   }
 
+  
   const reload = (e) => {
-    e.preventDefault(); //prevents enter spacing in text area
+    setQuestion(prevState => prevState + 1); 
+    e.preventDefault();
     setSuccess([]);
     setCorrect(prevState => prevState * 0);
     setNext(false);
-    setQuestion(prevState => prevState + 1); 
     setRoundScore(prevState => prevState * 0);
     getData();
   }
@@ -116,12 +117,12 @@ function App() {
       </div> 
      ) : "Loading..."}
     </div>
-    {/* {data.length > 0 ? roundScore === data.split(' ').length  ?  */}
+    {data.length > 0 ? roundScore === data.split(' ').length  ? 
       <button
         onClick={event => reload(event)}
       >Next
       </button>
-      {/* : null : "Loading..."} */}
+      : null : "Loading..."}
     </div>
     </>
   );
