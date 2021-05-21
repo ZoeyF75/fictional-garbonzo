@@ -43,9 +43,10 @@ function App() {
     return scrambledSentence;
   }
 
-  const guess = (guess, answer) => {
+  const guess = (guess, answer, i, w) => {
+    let key = i + w;
     if (guess.toLowerCase() === answer.toLowerCase()) {
-      setSuccess([...success, guess.toLowerCase()]);
+      setSuccess([...success, key]);
     }
   }
 
@@ -61,9 +62,9 @@ function App() {
       <div className="word">
         {word.split('').map((letter, index) => 
           <input 
-            key={index}
-            id={success.includes(letter.toLowerCase()) ? "success" : console.log(success)}
-            onChange={event => guess(event.target.value, letter) }>
+            key={`${index}${word}`}
+            id={success.includes(index + word) ? "success" : console.log(success)}
+            onChange={event => guess(event.target.value, letter, index, word) }>
           </input>
         )}
         {<input 
