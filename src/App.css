@@ -1,1 +1,31 @@
+.main-container {
+  width: 50em;
+  height: 45em;
+  border-radius: 20px;
+  margin-top: 2.5em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  padding: 1em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bolder;
+  text-align: center;
+}
 
+#scrambled-word {
+  padding: 0.5em;
+  color: rgb(59, 85, 204);
+}
+
+h1 {
+  font-size: 40px;
+}
+
+.info {
+  font-size: 20px;
+  padding: 1em;
+}
+
+h2 {
+  font-size: 35px;
+}

@@ -43,8 +43,11 @@ function App() {
   } 
 
   return (
-    <div id="scrambled-word">
-      {data.length > 0 ? scramble(data): "Loading..."}
+    <div className="main-container">
+    <span id="scrambled-word">{data.length > 0 ? <h1>{scramble(data)}</h1>: "Loading..."}</span>
+    <div className="info">Guess the sentence! Start typing</div>
+    <div className="info">The yellow blocks are meant for spaces</div>
+    <h2>Score:</h2>
     </div>
   );
 }
