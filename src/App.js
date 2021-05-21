@@ -12,15 +12,39 @@ function App() {
     getData();
   }, []);
 
-  const fetchData= async () => {
+  const fetchData = async () => {
     const res = await fetch('https://api.hatchways.io/assessment/sentences/1');
     const data = await res.json();
     return data
   }
 
+  const genIndexOrder = (length) => {
+    let order = [];
+    while (order.length < length) {
+      const index = Math.floor(Math.random() * length);
+      if (!order.includes(index)) {
+        order.push(index);
+      }
+    }
+    return order;
+  }
+
+  const scramble = (sentence) => {
+    let scrambledSentence = '';
+    sentence = sentence.split(' ');
+    sentence.forEach(word => {
+      const letterIndex = genIndexOrder(word.length);
+      for (let i = 0; i < letterIndex.length; i++) {
+        scrambledSentence += word[letterIndex[i]];
+      }
+      scrambledSentence += " ";
+    });
+    return scrambledSentence;
+  } 
+
   return (
     <div id="scrambled-word">
-      {data}
+      {data.length > 0 ? scramble(data): "Loading..."}
     </div>
   );
 }
