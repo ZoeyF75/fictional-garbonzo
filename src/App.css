@@ -49,6 +49,7 @@ input {
   padding: 0.5em;
   margin: 0.25em;
   min-width: 15px;
+  color: white;
 }
 
 #space {
@@ -67,4 +68,13 @@ input {
 #space-success {
   background-color: #4caf50;
   width: -webkit-fill-available;
+}
+
+button {
+  color: white;
+  background-color: #388e3c;
+  border: none;
+  font-size: 20px;
+  padding: 0.5em;
+  margin-top: 0.5em;
 }

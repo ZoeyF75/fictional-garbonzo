@@ -87,6 +87,7 @@ function App() {
       </div> 
      ) : "Loading..."}
     </div>
+    {data.length > 0 ? score === data.split(' ').length ? <button>Next</button>: null : "Loading..."}
     </div>
   );
 }
