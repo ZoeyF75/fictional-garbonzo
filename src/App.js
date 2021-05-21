@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const [data, setData] = useState([]);
   const [success, setSuccess] = useState([]);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -48,6 +49,9 @@ function App() {
     if (guess.toLowerCase() === answer.toLowerCase()) {
       setSuccess([...success, key]);
     }
+    if (guess === answer && guess === " ") {
+      setScore(prevState => prevState + 1);
+    }
   }
 
   return (
@@ -55,7 +59,11 @@ function App() {
     <span id="scrambled-word">{data.length > 0 ? <h1>{scramble(data)}</h1>: "Loading..."}</span>
     <div className="info">Guess the sentence! Start typing</div>
     <div className="info">The yellow blocks are meant for spaces</div>
-    <h2>Score:</h2>
+    <div className="subtext">
+      <small>Press Tab to move to the next letter.</small>
+      <small>Press SPACE on the yellow keys.</small>
+    </div>
+  <h2>Score: {score}</h2>
     <div className="keyboard-container">
     {data.length > 0 ? 
       data.split(' ').map(word =>
@@ -63,13 +71,17 @@ function App() {
         {word.split('').map((letter, index) => 
           <input 
             key={`${index}${word}`}
-            id={success.includes(index + word) ? "success" : console.log(success)}
-            onChange={event => guess(event.target.value, letter, index, word) }>
+            id={success.includes(index + word) ? "success" : "normal"}
+            onChange={event => guess(event.target.value, letter, index, word) }
+            maxLength="1"
+            >
           </input>
         )}
         {<input 
-            className="space"
-            // id={success.includes(letter.toLowerCase()) ? "success" : console.log(success)}
+            key={`space${word}`}
+            maxLength="1"
+            onChange={event => guess(event.target.value, " ", "space", word)}
+            id={success.includes(`space${word}`) ? "space-success" : "space"}
           >
           </input>}
       </div> 

@@ -27,6 +27,12 @@ h1 {
   padding-top: 0em;
 }
 
+.subtext {
+  display: flex;
+  flex-direction: column;
+  color:  #b8b8b8;
+}
+
 h2 {
   font-size: 35px;
 }
@@ -45,11 +51,20 @@ input {
   min-width: 15px;
 }
 
-.space {
+#space {
   background-color: #ffb74d;
   width: -webkit-fill-available;
 }
 
 #success {
   background-color: #4caf50;
+}
+
+#normal {
+  background-color: #e1e1e1;
+}
+
+#space-success {
+  background-color: #4caf50;
+  width: -webkit-fill-available;
 }
