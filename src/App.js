@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
+  const [success, setSuccess] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -42,10 +43,10 @@ function App() {
     return scrambledSentence;
   }
 
-  const letters = (sentence) => {
-    sentence.split(' ').forEach(word => {
-
-    })
+  const guess = (guess, answer) => {
+    if (guess.toLowerCase() === answer.toLowerCase()) {
+      setSuccess([...success, guess.toLowerCase()]);
+    }
   }
 
   return (
@@ -58,11 +59,19 @@ function App() {
     {data.length > 0 ? 
       data.split(' ').map(word =>
       <div className="word">
-        {word.split('').map(letter => <input placeholder={letter}></input>)}
-        {<input className="space" disabled></input>}
+        {word.split('').map((letter, index) => 
+          <input 
+            key={index}
+            id={success.includes(letter.toLowerCase()) ? "success" : console.log(success)}
+            onChange={event => guess(event.target.value, letter) }>
+          </input>
+        )}
+        {<input 
+            className="space"
+            // id={success.includes(letter.toLowerCase()) ? "success" : console.log(success)}
+          >
+          </input>}
       </div> 
-      // type="text" style={width: word.length}
-      // type="text" size={30 / word.length}
      ) : "Loading..."}
     </div>
     </div>

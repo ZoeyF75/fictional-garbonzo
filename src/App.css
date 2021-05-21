@@ -49,3 +49,7 @@ input {
   background-color: #ffb74d;
   width: -webkit-fill-available;
 }
+
+#success {
+  background-color: #4caf50;
+}
