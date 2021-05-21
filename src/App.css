@@ -53,20 +53,20 @@ input {
   color: white;
 }
 
-#space {
+.space {
   background-color: #ffb74d;
   width: -webkit-fill-available;
 }
 
-#success {
+.success {
   background-color: #4caf50;
 }
 
-#normal {
+.normal {
   background-color: #e1e1e1;
 }
 
-#space-success {
+.space-success {
   background-color: #4caf50;
   width: -webkit-fill-available;
 }

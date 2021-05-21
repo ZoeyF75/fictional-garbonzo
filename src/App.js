@@ -9,7 +9,6 @@ function App() {
   const [roundScore, setRoundScore] = useState(0);
   const [correct, setCorrect] = useState(0); //each word
   const [question, setQuestion] = useState(1);
-  const [next, setNext] = useState(false);
   const [tab, setTab] = useState(true);
 
   useEffect(() => {
@@ -65,24 +64,29 @@ function App() {
       setTab(true);
     } else if(answer === " ") {
       setTab(false);
-    }
+    } 
   }
 
-  
   const reload = (e) => {
     setQuestion(prevState => prevState + 1); 
     e.preventDefault();
     setSuccess([]);
     setCorrect(prevState => prevState * 0);
-    setNext(false);
     setRoundScore(prevState => prevState * 0);
+    //ensures all input boxes are cleared
+    const elements = document.getElementsByTagName("input");
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].type == "text") {
+        elements[i].value = "";
+      }
+    }
     getData();
   }
 
   //function disables tab key, need to run on last key if correct is not equal to word length
   window.onkeydown = function(e) {
     let keycode1 = (e.keyCode ? e.keyCode : e.which);
-    if (keycode1 == 0 || keycode1 == 9) {
+    if (keycode1 === 0 || keycode1 === 9) {
       if (!tab) {
         e.preventDefault();
         e.stopPropagation();
@@ -92,7 +96,7 @@ function App() {
 
   return (
     <>
-    {score === 10 ? <div class="alert alert-success" role="alert">Hooray! You have a score of 10. You won!</div> : null}
+    {score >= 10 ? <div className="alert alert-success" role="alert">Hooray! You have a score of 10. You won!</div> : null}
     <div className="main-container">
     <span id="scrambled-word">{data.length > 0 ? <h1>{scrambled}</h1>: "Loading..."}</span>
     <div className="info">Guess the sentence! Start typing</div>
@@ -109,7 +113,7 @@ function App() {
         {word.split('').map((letter, index) => 
           <input 
             key={`${index}${word}`}
-            id={success.includes(index + word) ? "success" : "normal"}
+            className={success.includes(index + word) ? "success" : "normal"}
             onChange={event => guess(event.target.value, letter, index, word) }
             maxLength="1"
             >
@@ -119,7 +123,7 @@ function App() {
             key={`space${word}`}
             maxLength="1"
             onChange={event => guess(event.target.value, " ", "space", word)}
-            id={success.includes(`space${word}`) ? "space-success" : "space"}
+            className={success.includes(`space${word}`) ? "space-success" : "space"}
           >
           </input>}
       </div> 
