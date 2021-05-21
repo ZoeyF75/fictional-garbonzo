@@ -40,7 +40,13 @@ function App() {
       scrambledSentence += " ";
     });
     return scrambledSentence;
-  } 
+  }
+
+  const letters = (sentence) => {
+    sentence.split(' ').forEach(word => {
+
+    })
+  }
 
   return (
     <div className="main-container">
@@ -48,6 +54,14 @@ function App() {
     <div className="info">Guess the sentence! Start typing</div>
     <div className="info">The yellow blocks are meant for spaces</div>
     <h2>Score:</h2>
+    <div className="keyboard-container">
+    {data.length > 0 ? data.split(' ').map((word) => word.split('').map(letter => <input></input>)
+      // <div className="word">
+        // word.split('').map(letter => <input></input>)
+        // <input className="space"></input>
+      // </div>
+     ) : "Loading..."}
+    </div>
     </div>
   );
 }

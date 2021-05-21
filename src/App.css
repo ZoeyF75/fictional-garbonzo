@@ -1,6 +1,6 @@
 .main-container {
   width: 50em;
-  height: 45em;
+  min-height: 45em;
   border-radius: 20px;
   margin-top: 2.5em;
   margin-left: auto;
@@ -22,10 +22,34 @@ h1 {
 }
 
 .info {
-  font-size: 20px;
-  padding: 1em;
+  font-size: 25px;
+  padding: 1.5em;
+  padding-top: 0em;
 }
 
 h2 {
   font-size: 35px;
+}
+
+.keyboard-container {
+
+}
+
+.word {
+  display: flex;
+}
+
+input {
+  background-color: #e1e1e1;
+  border: none;
+  font-size: 25px;
+  outline: none;
+  padding: 0.5em;
+  margin: 0.5em;
+  width: min-content;
+}
+
+.space {
+  background-color: #ffb74d;
+  height: 25px;
 }
