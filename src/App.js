@@ -10,6 +10,7 @@ function App() {
   const [correct, setCorrect] = useState(0); //each word
   const [question, setQuestion] = useState(1);
   const [next, setNext] = useState(false);
+  const [tab, setTab] = useState(true);
 
   useEffect(() => {
     getData();
@@ -58,9 +59,12 @@ function App() {
       setCorrect(prevState => prevState + 1);
     }
     if (guess === answer && guess === " " && correct === w.length) {
-      setScore(prevState => prevState + 1);
+      setScore(prevState => prevState + 1); //increase score after line is complete
       setRoundScore(prevState => prevState + 1);
       setCorrect(prevState => prevState * 0);
+      setTab(true);
+    } else if(answer === " ") {
+      setTab(false);
     }
   }
 
@@ -75,11 +79,14 @@ function App() {
     getData();
   }
 
+  //function disables tab key, need to run on last key if correct is not equal to word length
   window.onkeydown = function(e) {
     let keycode1 = (e.keyCode ? e.keyCode : e.which);
     if (keycode1 == 0 || keycode1 == 9) {
-      e.preventDefault();
-      e.stopPropagation();
+      if (!tab) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
     }
   };
 
