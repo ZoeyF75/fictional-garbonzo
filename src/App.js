@@ -6,6 +6,7 @@ function App() {
   const [scrambled, setScramble] = useState([]);
   const [success, setSuccess] = useState([]);
   const [score, setScore] = useState(0);
+  const [correct, setCorrect] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -50,9 +51,11 @@ function App() {
     let key = i + w;
     if (guess.toLowerCase() === answer.toLowerCase()) {
       setSuccess([...success, key]);
+      setCorrect(prevState => prevState + 1);
     }
-    if (guess === answer && guess === " ") {
+    if (guess === answer && guess === " " && correct === w.length) {
       setScore(prevState => prevState + 1);
+      setCorrect(prevState => prevState * 0);
     }
   }
 
