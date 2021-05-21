@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
+  const [scrambled, setScramble] = useState([]);
   const [success, setSuccess] = useState([]);
   const [score, setScore] = useState(0);
 
@@ -10,6 +11,7 @@ function App() {
     const getData = async () => {
       const dataFromServer = await fetchData();
       setData(dataFromServer.data.sentence);
+      setScramble(scramble(dataFromServer.data.sentence));
     }
     getData();
   }, []);
@@ -56,7 +58,7 @@ function App() {
 
   return (
     <div className="main-container">
-    <span id="scrambled-word">{data.length > 0 ? <h1>{scramble(data)}</h1>: "Loading..."}</span>
+    <span id="scrambled-word">{data.length > 0 ? <h1>{scrambled}</h1>: "Loading..."}</span>
     <div className="info">Guess the sentence! Start typing</div>
     <div className="info">The yellow blocks are meant for spaces</div>
     <div className="subtext">
