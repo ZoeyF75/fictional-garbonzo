@@ -75,16 +75,17 @@ function App() {
     getData();
   }
 
-  function disableScreen() {
-    var div= document.createElement("div");
-    div.className += "overlay";
-    document.body.appendChild(div);
-  }
+  window.onkeydown = function(e) {
+    let keycode1 = (e.keyCode ? e.keyCode : e.which);
+    if (keycode1 == 0 || keycode1 == 9) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
 
   return (
     <>
     {score === 10 ? <div class="alert alert-success" role="alert">Hooray! You have a score of 10. You won!</div> : null}
-    {score === 10 ? disableScreen() : null}
     <div className="main-container">
     <span id="scrambled-word">{data.length > 0 ? <h1>{scrambled}</h1>: "Loading..."}</span>
     <div className="info">Guess the sentence! Start typing</div>
