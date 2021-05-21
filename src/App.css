@@ -46,7 +46,7 @@ input {
   outline: none;
   padding: 0.5em;
   margin: 0.5em;
-  width: min-content;
+  width: 15px;
 }
 
 .space {

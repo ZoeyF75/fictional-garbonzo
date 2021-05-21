@@ -55,7 +55,14 @@ function App() {
     <div className="info">The yellow blocks are meant for spaces</div>
     <h2>Score:</h2>
     <div className="keyboard-container">
-    {data.length > 0 ? data.split(' ').map((word) => word.split('').map(letter => <input></input>)
+    {data.length > 0 ? 
+      data.split(' ').map(word =>
+      <div className="word">
+        {word.split('').map(letter => <input placeholder={letter}></input>)}
+
+      </div> 
+      
+      // .forEach(word => <input className="space"></input> )
       // <div className="word">
         // word.split('').map(letter => <input></input>)
         // <input className="space"></input>
