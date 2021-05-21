@@ -54,7 +54,7 @@ function App() {
   const guess = (guess, answer, i, w) => {
     let key = i + w;
     if (guess === answer && guess === " " && correct === w.length) {
-      setScore(prevState => prevState + 1); //increase score after line is complete
+      // setScore(prevState => prevState + 1); //increase score after line is complete
       setSuccess([...success, key]);
       setRoundScore(prevState => prevState + 1);
       setCorrect(prevState => prevState * 0);
@@ -65,7 +65,10 @@ function App() {
     }
     else if(answer === " ") {
       setTab(false);
-    } 
+    }
+    if (success.length === data.length) {
+      setRoundScore(prevdata => prevdata * 0 + data.split(" ").length);
+    }
   }
 
   const reload = (e) => {
@@ -73,6 +76,7 @@ function App() {
     e.preventDefault();
     setSuccess([]);
     setCorrect(prevState => prevState * 0);
+    setScore(prevState => prevState + roundScore);
     setRoundScore(prevState => prevState * 0);
     //ensures all input boxes are cleared
     const elements = document.getElementsByTagName("input");
@@ -97,7 +101,7 @@ function App() {
 
   return (
     <>
-    {score >= 10 ? <div className="alert alert-success" role="alert">Hooray! You have a score of 10. You won!</div> : null}
+    {score + roundScore >= 10 ? <div className="alert alert-success" role="alert">Hooray! You have a score of 10. You won!</div> : null}
     <div className="main-container">
     <span id="scrambled-word">{data.length > 0 ? <h1>{scrambled}</h1>: "Loading..."}</span>
     <div className="info">Guess the sentence! Start typing</div>
@@ -106,7 +110,7 @@ function App() {
       <small>Press Tab to move to the next letter.</small>
       <small>Press SPACE on the yellow keys.</small>
     </div>
-  <h2>Score: {score}</h2>
+  <h2>Score: {roundScore + score}</h2>
     <div className="keyboard-container">
     {data.length > 0 ? 
       data.split(' ').map((word, index) =>
