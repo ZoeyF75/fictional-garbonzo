@@ -42,9 +42,10 @@ input {
   outline: none;
   padding: 0.5em;
   margin: 0.25em;
-  width: 20px;
+  min-width: 15px;
 }
 
 .space {
   background-color: #ffb74d;
+  width: -webkit-fill-available;
 }

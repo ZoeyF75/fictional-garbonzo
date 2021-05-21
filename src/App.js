@@ -61,11 +61,8 @@ function App() {
         {word.split('').map(letter => <input placeholder={letter}></input>)}
         {<input className="space" disabled></input>}
       </div> 
-      
-      // .forEach(word => <input className="space"></input> )
-      // <div className="word">
-        // word.split('').map(letter => <input></input>)
-      // </div>
+      // type="text" style={width: word.length}
+      // type="text" size={30 / word.length}
      ) : "Loading..."}
     </div>
     </div>
