@@ -59,13 +59,12 @@ function App() {
       data.split(' ').map(word =>
       <div className="word">
         {word.split('').map(letter => <input placeholder={letter}></input>)}
-
+        {<input className="space" disabled></input>}
       </div> 
       
       // .forEach(word => <input className="space"></input> )
       // <div className="word">
         // word.split('').map(letter => <input></input>)
-        // <input className="space"></input>
       // </div>
      ) : "Loading..."}
     </div>
