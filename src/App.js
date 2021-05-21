@@ -2,14 +2,14 @@ import './App.css';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [data, setData] = useState([]);
-  const [scrambled, setScramble] = useState([]);
-  const [success, setSuccess] = useState([]);
+  const [data, setData] = useState([]); //actual sentence retrieved
+  const [scrambled, setScramble] = useState([]); //sentence scrambled used to display
+  const [success, setSuccess] = useState([]); //array of correct guesses
   const [score, setScore] = useState(0); //overallscore
-  const [roundScore, setRoundScore] = useState(0);
-  const [correct, setCorrect] = useState(0); //each word
-  const [question, setQuestion] = useState(1);
-  const [tab, setTab] = useState(true);
+  const [roundScore, setRoundScore] = useState(0); //score for each sentence
+  const [correct, setCorrect] = useState(0); //score for each word
+  const [question, setQuestion] = useState(1); //used in fetchdata call
+  const [tab, setTab] = useState(true); //disable tab when sentence is incomplete
 
   useEffect(() => {
     getData();
@@ -53,16 +53,17 @@ function App() {
 
   const guess = (guess, answer, i, w) => {
     let key = i + w;
-    if (guess.toLowerCase() === answer.toLowerCase()) {
-      setSuccess([...success, key]);
-      setCorrect(prevState => prevState + 1);
-    }
     if (guess === answer && guess === " " && correct === w.length) {
       setScore(prevState => prevState + 1); //increase score after line is complete
+      setSuccess([...success, key]);
       setRoundScore(prevState => prevState + 1);
       setCorrect(prevState => prevState * 0);
       setTab(true);
-    } else if(answer === " ") {
+    } else if (guess.toLowerCase() === answer.toLowerCase()) {
+      setSuccess([...success, key]);
+      setCorrect(prevState => prevState + 1);
+    }
+    else if(answer === " ") {
       setTab(false);
     } 
   }
@@ -116,6 +117,7 @@ function App() {
             className={success.includes(index + word) ? "success" : "normal"}
             onChange={event => guess(event.target.value, letter, index, word) }
             maxLength="1"
+            disabled={success.includes(index + word)}
             >
           </input>
         )}
@@ -124,6 +126,7 @@ function App() {
             maxLength="1"
             onChange={event => guess(event.target.value, " ", "space", word)}
             className={success.includes(`space${word}`) ? "space-success" : "space"}
+            disabled={success.includes(`space${word}`) || correct < word.length}
           >
           </input>}
       </div> 
